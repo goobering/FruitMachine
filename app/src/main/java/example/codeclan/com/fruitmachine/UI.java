@@ -178,12 +178,14 @@ public class UI
 
     public static HashSet<Integer> getReelNums()
     {
+        //HashSet ensures no duplicates
         HashSet<Integer> resultHash = new HashSet<Integer>();
 
         while(true)
         {
             String input = getInput();
 
+            //Acceptable values
             char[] wanted = new char[]{'0', '1', '2', '3'};
             boolean hit;
             for(char wantedChar : wanted)
@@ -195,6 +197,7 @@ public class UI
                 }
             }
 
+            //If anything input other than 0, 1, 2, 3
             if(resultHash.size() == 0)
             {
                 Viewer.printLine("Whoops! Please enter numbers between 0 and 3.");
@@ -202,10 +205,12 @@ public class UI
                 continue;
             }
 
+            //If user chooses 0/no reels
             if(resultHash.contains(-1))
             {
                 resultHash.clear();
             }
+
             return resultHash;
         }
     }

@@ -67,6 +67,6 @@ public class TestReel
         Symbol preSpinSymbol = reel.getCurrentSymbol();
         reel.spin();
         assertTrue(reel.getSymbols().contains(reel.getCurrentSymbol()));
-        assertFalse(reel.getCurrentSymbol().getImage().equals(preSpinSymbol));
+        assertFalse(reel.getCurrentSymbol().getImage().equals(preSpinSymbol.getImage()));
     }
 }

@@ -61,13 +61,86 @@ public class TestFruitMachine
     @Test
     public void testSpinAllReels()
     {
-        ArrayList<Symbol> currentSymbols = fruitMachine.getCurrentSymbols();
+        ArrayList<Symbol> preSpinSymbols = fruitMachine.getCurrentSymbols();
         fruitMachine.spinReels(new HashSet<Integer>());
 
-        for(int i = 0; i < currentSymbols.size(); i++)
+        for(int i = 0; i < 100000; i++)
         {
-            assertNotEquals(currentSymbols.get(i).getImage(), fruitMachine.getCurrentSymbols().get(i).getImage());
-            assertNotEquals(currentSymbols.get(i).getScore(), fruitMachine.getCurrentSymbols().get(i).getScore());
+            for(int j = 0; j < preSpinSymbols.size(); j++)
+            {
+                //After spinning reels, new symbols should not equal old symbols
+                assertNotEquals(preSpinSymbols.get(j).getImage(), fruitMachine.getCurrentSymbols().get(j).getImage());
+                assertNotEquals(preSpinSymbols.get(j).getScore(), fruitMachine.getCurrentSymbols().get(j).getScore());
+            }
+        }
+    }
+
+    @Test
+    public void testSpinOneReel()
+    {
+        ArrayList<Symbol> preSpinSymbols = fruitMachine.getCurrentSymbols();
+        //reelsToHold is zero indexed
+        HashSet<Integer> reelsToHold = new HashSet<Integer>();
+        reelsToHold.add(1);
+        reelsToHold.add(2);
+
+        fruitMachine.spinReels(reelsToHold);
+
+        for(int i = 0; i < 100000; i++)
+        {
+            //After spinning reels, new symbols should not equal old symbols on spun reels
+            assertNotEquals(preSpinSymbols.get(0).getScore(), fruitMachine.getCurrentSymbols().get(0).getScore());
+            assertNotEquals(preSpinSymbols.get(0).getImage(), fruitMachine.getCurrentSymbols().get(0).getImage());
+            assertEquals(preSpinSymbols.get(1).getScore(), fruitMachine.getCurrentSymbols().get(1).getScore());
+            assertEquals(preSpinSymbols.get(1).getImage(), fruitMachine.getCurrentSymbols().get(1).getImage());
+            assertEquals(preSpinSymbols.get(2).getScore(), fruitMachine.getCurrentSymbols().get(2).getScore());
+            assertEquals(preSpinSymbols.get(2).getImage(), fruitMachine.getCurrentSymbols().get(2).getImage());
+        }
+    }
+
+    @Test
+    public void testSpinTwoReels()
+    {
+        ArrayList<Symbol> preSpinSymbols = fruitMachine.getCurrentSymbols();
+        //reelsToHold is zero indexed
+        HashSet<Integer> reelsToHold = new HashSet<Integer>();
+        reelsToHold.add(2);
+
+        fruitMachine.spinReels(reelsToHold);
+
+        for(int i = 0; i < 100000; i++)
+        {
+            //After spinning reels, new symbols should not equal old symbols on spun reels
+            assertNotEquals(preSpinSymbols.get(0).getScore(), fruitMachine.getCurrentSymbols().get(0).getScore());
+            assertNotEquals(preSpinSymbols.get(0).getImage(), fruitMachine.getCurrentSymbols().get(0).getImage());
+            assertNotEquals(preSpinSymbols.get(1).getScore(), fruitMachine.getCurrentSymbols().get(1).getScore());
+            assertNotEquals(preSpinSymbols.get(1).getImage(), fruitMachine.getCurrentSymbols().get(1).getImage());
+            assertEquals(preSpinSymbols.get(2).getScore(), fruitMachine.getCurrentSymbols().get(2).getScore());
+            assertEquals(preSpinSymbols.get(2).getImage(), fruitMachine.getCurrentSymbols().get(2).getImage());
+        }
+    }
+
+    @Test
+    public void testSpinNoReels()
+    {
+        ArrayList<Symbol> preSpinSymbols = fruitMachine.getCurrentSymbols();
+        //reelsToHold is zero indexed
+        HashSet<Integer> reelsToHold = new HashSet<Integer>();
+        reelsToHold.add(0);
+        reelsToHold.add(1);
+        reelsToHold.add(2);
+
+        fruitMachine.spinReels(reelsToHold);
+
+        for(int i = 0; i < 100000; i++)
+        {
+            //After spinning reels, new symbols should not equal old symbols on spun reels
+            assertEquals(preSpinSymbols.get(0).getScore(), fruitMachine.getCurrentSymbols().get(0).getScore());
+            assertEquals(preSpinSymbols.get(0).getImage(), fruitMachine.getCurrentSymbols().get(0).getImage());
+            assertEquals(preSpinSymbols.get(1).getScore(), fruitMachine.getCurrentSymbols().get(1).getScore());
+            assertEquals(preSpinSymbols.get(1).getImage(), fruitMachine.getCurrentSymbols().get(1).getImage());
+            assertEquals(preSpinSymbols.get(2).getScore(), fruitMachine.getCurrentSymbols().get(2).getScore());
+            assertEquals(preSpinSymbols.get(2).getImage(), fruitMachine.getCurrentSymbols().get(2).getImage());
         }
     }
 

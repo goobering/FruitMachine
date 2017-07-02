@@ -45,7 +45,9 @@ public class Reel
     {
         Random rand = new Random();
 
-        int spinDistance = rand.nextInt(getSize());
+        //(getSize() - 1) ensures that the reel won't rotate back to the start
+        //+1 ensures that the reel will always nudge at least once
+        int spinDistance = rand.nextInt(getSize() - 1) + 1;
         for(int i = 0; i < spinDistance; i++)
         {
             nudge();
