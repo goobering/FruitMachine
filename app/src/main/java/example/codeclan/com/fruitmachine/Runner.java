@@ -30,23 +30,20 @@ public class Runner
         //Begin UI
         UI.showWelcome();
         UI.showTopUp(player.getBank());
-        UI.showPrompt();
 
         int creditAmount = UI.getAmountToAdd();
         fruitMachine.addCreditFromPlayerBank(creditAmount);
 
         while(true)
         {
-            //Initial play UI
-            UI.showPlayerCredits(fruitMachine.getPlayerCredit());
-            UI.showBlankLine();
-            UI.showStartGame();
-            UI.showBlankLine();
-            //User pulls lever
-            UI.getPullLeverKey();
-            UI.showBlankLine();
             if(fruitMachine.getPlayerCredit() > 0)
             {
+                //Initial play UI
+                UI.showPlayerCredits(fruitMachine.getPlayerCredit());
+                UI.showStartGame();
+                //User pulls lever
+                UI.getPullLeverKey();
+
                 fruitMachine.moveCreditToBank(1);
 
                 try
@@ -58,18 +55,14 @@ public class Runner
                     UI.showError(ex.getMessage());
                     continue;
                 }
-                UI.showBlankLine();
                 UI.showPullLever();
-                UI.showBlankLine();
                 UI.showSymbols(fruitMachine.getPreviousSymbols(), fruitMachine.getCurrentSymbols(), fruitMachine.getNextSymbols());
-                UI.showBlankLine();
 
                 //User chooses whether to nudge reels
                 UI.showChooseNudgeReels();
                 HashSet<Integer> nudgeReels = UI.getReelNums();
                 fruitMachine.nudgeReels(nudgeReels);
                 UI.showSymbols(fruitMachine.getPreviousSymbols(), fruitMachine.getCurrentSymbols(), fruitMachine.getNextSymbols());
-                UI.showBlankLine();
 
                 //User chooses whether to hold reels
                 UI.showChooseHoldReels();
@@ -86,30 +79,24 @@ public class Runner
                     UI.showError(ex.getMessage());
                     continue;
                 }
-                UI.showBlankLine();
                 UI.showPullLever();
-                UI.showBlankLine();
                 //Show post-hold symbols
                 UI.showSymbols(fruitMachine.getPreviousSymbols(), fruitMachine.getCurrentSymbols(), fruitMachine.getNextSymbols());
-                UI.showBlankLine();
                 //Check post-hold reels and payout if win
                 fruitMachine.checkReelsAndPayout();
 
                 if(fruitMachine.lastTurnWon())
                 {
                     UI.showWin(fruitMachine.getLastAmountWon());
-                    UI.showBlankLine();
                 }
                 else
                 {
                     UI.showLose();
-                    UI.showBlankLine();
                 }
             }
             else
             {
                 UI.showOutOfCredit();
-                UI.showPrompt();
                 char choice = UI.getTopUpOrQuit();
                 if(choice == 'Q')
                 {
@@ -120,7 +107,6 @@ public class Runner
                 else
                 {
                     UI.showTopUp(player.getBank());
-                    UI.showPrompt();
 
                     creditAmount = UI.getAmountToAdd();
                     fruitMachine.addCreditFromPlayerBank(creditAmount);

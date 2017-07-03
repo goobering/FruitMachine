@@ -28,16 +28,19 @@ public class UI
     public static void showWelcome()
     {
         Viewer.printLine("Welcome to the puggies!");
+        showBlankLine();
     }
 
     public static void showStartGame()
     {
         Viewer.printLine("Please press enter to pull the lever. Costs 1 credit.");
+        showBlankLine();
     }
 
     public static void showPlayerCredits(int amount)
     {
         Viewer.printLine(String.format("You currently have %d credits.", amount));
+        showBlankLine();
     }
 
     public static void showPrompt()
@@ -49,11 +52,11 @@ public class UI
     {
         int input = 0;
 
-        while(true)
+        while (true)
         {
             input = getIntInput();
 
-            if(input < 1)
+            if (input < 1)
             {
                 Viewer.printLine("Whoops! Please enter an integer greater than zero.");
                 showPrompt();
@@ -68,13 +71,13 @@ public class UI
 
     public static int getIntInput()
     {
-        while(true)
+        while (true)
         {
             try
             {
                 return Integer.parseInt(getInput());
             }
-            catch(NumberFormatException ex)
+            catch (NumberFormatException ex)
             {
                 Viewer.printLine("Whoops! Please enter an integer value.");
                 showPrompt();
@@ -90,21 +93,21 @@ public class UI
     public static void showPullLever()
     {
         Viewer.printLine("<spinspinspinspinspinspinspin>");
+        showBlankLine();
     }
 
     public static void getPullLeverKey()
     {
-        while(true)
+        while (true)
         {
             String input = null;
             input = getInput();
 
-            if(!input.equals(""))
+            if (!input.equals(""))
             {
                 Viewer.printLine("Whoops - not the enter key! Please try again.");
                 input = null;
-            }
-            else
+            } else
             {
                 break;
             }
@@ -115,7 +118,7 @@ public class UI
     {
         StringBuilder sb = new StringBuilder();
         sb.append(string);
-        while(sb.length() < length)
+        while (sb.length() < length)
         {
             sb.append(" ");
         }
@@ -127,7 +130,7 @@ public class UI
     {
         StringBuilder row = new StringBuilder();
 
-        for(Symbol symbol : symbols)
+        for (Symbol symbol : symbols)
         {
             String padded = padStringToLength(symbol.getImage(), 9);
 
@@ -159,21 +162,25 @@ public class UI
         Viewer.printLine(ASCIIFruitMachine.EMPTYROW.getName());
         Viewer.printLine(ASCIIFruitMachine.BOTTOM.getName());
         Viewer.printLine(ASCIIFruitMachine.NUMBERS.getName());
+        showBlankLine();
     }
 
     public static void showWin(int amount)
     {
         Viewer.printLine(String.format("You won %d.", amount));
+        showBlankLine();
     }
 
     public static void showLose()
     {
         Viewer.printLine("You lost.");
+        showBlankLine();
     }
 
     public static void showChooseHoldReels()
     {
         Viewer.printLine("Please input the reel numbers you'd like to hold, or 0 to hold none.");
+        showPrompt();
     }
 
     public static HashSet<Integer> getReelNums()
@@ -181,24 +188,24 @@ public class UI
         //HashSet ensures no duplicates
         HashSet<Integer> resultHash = new HashSet<Integer>();
 
-        while(true)
+        while (true)
         {
             String input = getInput();
 
             //Acceptable values
             char[] wanted = new char[]{'0', '1', '2', '3'};
             boolean hit;
-            for(char wantedChar : wanted)
+            for (char wantedChar : wanted)
             {
                 hit = input.indexOf(wantedChar) >= 0;
-                if(hit)
+                if (hit)
                 {
                     resultHash.add(Integer.parseInt(Character.toString(wantedChar)) - 1);
                 }
             }
 
             //If anything input other than 0, 1, 2, 3
-            if(resultHash.size() == 0)
+            if (resultHash.size() == 0)
             {
                 Viewer.printLine("Whoops! Please enter numbers between 0 and 3.");
                 showPrompt();
@@ -206,7 +213,7 @@ public class UI
             }
 
             //If user chooses 0/no reels
-            if(resultHash.contains(-1))
+            if (resultHash.contains(-1))
             {
                 resultHash.clear();
             }
@@ -223,26 +230,28 @@ public class UI
     public static void showOutOfCredit()
     {
         Viewer.printLine("You've run out of credit. Would you like to (T)op up or (Q)uit?");
+        showPrompt();
     }
 
     public static char getTopUpOrQuit()
     {
-        while(true)
+        while (true)
         {
             String input = getInput();
 
             char[] wanted = new char[]{'Q', 'T'};
             boolean hit;
-            for(char wantedChar : wanted)
+            for (char wantedChar : wanted)
             {
                 hit = input.indexOf(wantedChar) >= 0;
-                if(hit)
+                if (hit)
                 {
                     return wantedChar;
                 }
             }
 
             Viewer.printLine("Whoops! Please enter T to top up or Q to quit.");
+            showPrompt();
         }
     }
 
@@ -255,11 +264,13 @@ public class UI
     {
         Viewer.printLine(String.format("You currently have %d credits in your wallet.", bank));
         Viewer.printLine("How many credits would you like to play with? (1 credit per play/non-refundable)");
+        showPrompt();
     }
 
     public static void showChooseNudgeReels()
     {
         Viewer.printLine("Please input the reel numbers you'd like to nudge, or 0 to nudge none.");
+        showPrompt();
     }
 
     public static void showError(String message)
